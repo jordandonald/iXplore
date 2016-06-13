@@ -13,12 +13,12 @@
 		1706741A1D08D02B00F5080B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 170674181D08D02B00F5080B /* LaunchScreen.storyboard */; };
 		170674251D08D02B00F5080B /* iXploreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170674241D08D02B00F5080B /* iXploreTests.swift */; };
 		170674301D08D02B00F5080B /* iXploreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1706742F1D08D02B00F5080B /* iXploreUITests.swift */; };
-		17DAD9821D08D1E000CCC345 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DAD9811D08D1E000CCC345 /* Spot.swift */; };
+		1732C0E11D0EB9AD00FDB21B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732C0E01D0EB9AD00FDB21B /* Place.swift */; };
+		1732C0E41D0EBBFF00FDB21B /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732C0E21D0EBBFF00FDB21B /* PlaceTableViewCell.swift */; };
+		1732C0E51D0EBBFF00FDB21B /* PlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1732C0E31D0EBBFF00FDB21B /* PlaceTableViewCell.xib */; };
 		17DAD9841D08D39600CCC345 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17DAD9831D08D39600CCC345 /* MapKit.framework */; };
 		17DAD9871D08E0BA00CCC345 /* MapAndTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DAD9851D08E0BA00CCC345 /* MapAndTableViewController.swift */; };
 		17DAD9881D08E0BA00CCC345 /* MapAndTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17DAD9861D08E0BA00CCC345 /* MapAndTableViewController.xib */; };
-		17DAD98B1D08E39300CCC345 /* SpotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DAD9891D08E39300CCC345 /* SpotTableViewCell.swift */; };
-		17DAD98C1D08E39300CCC345 /* SpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17DAD98A1D08E39300CCC345 /* SpotTableViewCell.xib */; };
 		17DAD98F1D08E4CA00CCC345 /* star_black 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 17DAD98E1D08E4CA00CCC345 /* star_black 1.png */; };
 		17DAD9911D08E4CD00CCC345 /* star_pink 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 17DAD9901D08E4CD00CCC345 /* star_pink 1.png */; };
 /* End PBXBuildFile section */
@@ -53,12 +53,12 @@
 		1706742B1D08D02B00F5080B /* iXploreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iXploreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1706742F1D08D02B00F5080B /* iXploreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iXploreUITests.swift; sourceTree = "<group>"; };
 		170674311D08D02B00F5080B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		17DAD9811D08D1E000CCC345 /* Spot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
+		1732C0E01D0EB9AD00FDB21B /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		1732C0E21D0EBBFF00FDB21B /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
+		1732C0E31D0EBBFF00FDB21B /* PlaceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceTableViewCell.xib; sourceTree = "<group>"; };
 		17DAD9831D08D39600CCC345 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		17DAD9851D08E0BA00CCC345 /* MapAndTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapAndTableViewController.swift; path = ../MapAndTableViewController.swift; sourceTree = "<group>"; };
 		17DAD9861D08E0BA00CCC345 /* MapAndTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapAndTableViewController.xib; path = ../MapAndTableViewController.xib; sourceTree = "<group>"; };
-		17DAD9891D08E39300CCC345 /* SpotTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotTableViewCell.swift; sourceTree = "<group>"; };
-		17DAD98A1D08E39300CCC345 /* SpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpotTableViewCell.xib; sourceTree = "<group>"; };
 		17DAD98E1D08E4CA00CCC345 /* star_black 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_black 1.png"; path = "../../../Desktop/star_black 1.png"; sourceTree = "<group>"; };
 		17DAD9901D08E4CD00CCC345 /* star_pink 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star_pink 1.png"; path = "../../../Desktop/star_pink 1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,11 +92,11 @@
 		170674031D08D02B00F5080B = {
 			isa = PBXGroup;
 			children = (
+				1732C0E21D0EBBFF00FDB21B /* PlaceTableViewCell.swift */,
+				1732C0E31D0EBBFF00FDB21B /* PlaceTableViewCell.xib */,
+				1732C0E01D0EB9AD00FDB21B /* Place.swift */,
 				17DAD98D1D08E49500CCC345 /* Images */,
-				17DAD9891D08E39300CCC345 /* SpotTableViewCell.swift */,
-				17DAD98A1D08E39300CCC345 /* SpotTableViewCell.xib */,
 				17DAD9831D08D39600CCC345 /* MapKit.framework */,
-				17DAD9811D08D1E000CCC345 /* Spot.swift */,
 				1706740E1D08D02B00F5080B /* iXplore */,
 				170674231D08D02B00F5080B /* iXploreTests */,
 				1706742E1D08D02B00F5080B /* iXploreUITests */,
@@ -264,12 +264,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1732C0E51D0EBBFF00FDB21B /* PlaceTableViewCell.xib in Resources */,
 				1706741A1D08D02B00F5080B /* LaunchScreen.storyboard in Resources */,
 				17DAD98F1D08E4CA00CCC345 /* star_black 1.png in Resources */,
 				170674171D08D02B00F5080B /* Assets.xcassets in Resources */,
 				17DAD9881D08E0BA00CCC345 /* MapAndTableViewController.xib in Resources */,
 				17DAD9911D08E4CD00CCC345 /* star_pink 1.png in Resources */,
-				17DAD98C1D08E39300CCC345 /* SpotTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,8 +297,8 @@
 				170674121D08D02B00F5080B /* ViewController.swift in Sources */,
 				170674101D08D02B00F5080B /* AppDelegate.swift in Sources */,
 				17DAD9871D08E0BA00CCC345 /* MapAndTableViewController.swift in Sources */,
-				17DAD98B1D08E39300CCC345 /* SpotTableViewCell.swift in Sources */,
-				17DAD9821D08D1E000CCC345 /* Spot.swift in Sources */,
+				1732C0E41D0EBBFF00FDB21B /* PlaceTableViewCell.swift in Sources */,
+				1732C0E11D0EB9AD00FDB21B /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
