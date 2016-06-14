@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -23,6 +23,7 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         self.placeList = Place.placeList()
         self.setupMapView()
         self.setUpTableView()
+        self.mapView.delegate = self
         
     }
     
@@ -47,7 +48,7 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        tableView.registerNib(UINib(nibName: "PlaceTableViewCell" , bundle: nil), forCellReuseIdentifier: "placeTableViewCell")
+        self.tableView.registerClass(PlaceTableViewCell.self, forCellReuseIdentifier: "placeTableViewCell")
         
     }
     
@@ -66,17 +67,19 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
       
         let cell = tableView.dequeueReusableCellWithIdentifier("placeTableViewCell", forIndexPath: indexPath) as! PlaceTableViewCell
         
-        cell.placeLabel.text = place.title
-        cell.placeImage.imageFromUrl(place.logoURL!)
+        //cell.placeLabel.text = place.title
+        //cell.placeImage.imageFromUrl(place.logoURL!)
         
-        let date = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.locale = NSLocale.currentLocale()
-        formatter.dateFormat = "MM/dd/yyyy HH:mm a"
+//        let date = NSDate()
+//        let formatter = NSDateFormatter()
+//        formatter.locale = NSLocale.currentLocale()
+//        formatter.dateFormat = "MM/dd/yyyy HH:mm a"
+//        
+//        let converter = formatter.stringFromDate(date)
         
-        let converter = formatter.stringFromDate(date)
+        //cell.dateLabel.text = converter
         
-        cell.date.text = converter
+        cell.referenceCell(place)
         
         return cell
     }
@@ -97,12 +100,73 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         return CGFloat(88)
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            placeList.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == .Delete {
+//            mapView.removeAnnotation(placeList[indexPath.row])
+//            placeList.removeAtIndex(indexPath.row)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//        }
+//    }
+    
+    func deleteCell(indexPath: NSIndexPath) {
+        mapView.removeAnnotation(placeList[indexPath.row])
+        placeList.removeAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    }
+    
+    func favoriteCell(indexPath: NSIndexPath) {
+        mapView.removeAnnotation(placeList[indexPath.row])
+        placeList[indexPath.row].favorite = true
+        mapView.addAnnotation(placeList[indexPath.row])
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let action1 = UITableViewRowAction(style: .Normal, title: "Favorite") { action, index in
+            print("Cell favorited")
+            self.favoriteCell(indexPath)
         }
+        action1.backgroundColor = UIColor.orangeColor()
+        
+        let action2 = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            print("Cell deleted")
+            self.deleteCell(indexPath)
+        }
+        action2.backgroundColor = UIColor.redColor()
+        
+        return [action1, action2]
     }
     
     
+    func mapView(mapView: MKMapView!,
+                 viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        let pin = annotation as! Place
+        
+        if !(pin.favorite){
+            return nil
+        }
+
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.animatesDrop = true
+            pinView!.pinTintColor = UIColor.yellowColor()
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        
+        return pinView
+    }
+    
+
 }

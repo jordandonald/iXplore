@@ -9,13 +9,14 @@
 import Foundation
 import MapKit
 
-class Place:NSObject, MKAnnotation  {
+class Place:NSObject, MKAnnotation {
     
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var title: String? = ""
     var logoURL:String?
     var ratable:Bool = true
     var date: NSData?
+    var favorite:Bool = false
     
     class func placeList() -> [Place] {
         
