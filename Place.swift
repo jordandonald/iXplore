@@ -17,21 +17,57 @@ class Place:NSObject, MKAnnotation {
     var ratable:Bool = true
     var date: NSData?
     var favorite:Bool = false
+    var descriptionField: String? = ""
+    var latitude:String? = ""
+    var longitude:String? = ""
+    
+    override init(){
+        
+    }
+    
+    required init(title:String?, date:NSData?, /*coordinate:CLLocationCoordinate2D,*/ descriptionField:String?) {
+        
+        self.title = title
+        self.date = date
+        //self.coordinate = coordinate
+        self.descriptionField = descriptionField
+    }
+    
+    // MARK: - NSCoding
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.title, forKey: "title")
+        aCoder.encodeObject(self.date, forKey: "date")
+        //aCoder.encodeObject(self.coordinate, forKey: "coordinate")
+        aCoder.encodeObject(self.descriptionField, forKey: "descriptionField")
+        
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        
+        let title = aDecoder.decodeObjectForKey("title") as? String
+        let date = aDecoder.decodeObjectForKey("date") as? NSData
+        //let coordinate = aDecoder.decodeObjectForKey("coordinate") as? CLLocationCoordinate2D
+        let descriptionField = aDecoder.decodeObjectForKey("descriptionField") as? String
+        
+        self.init(title:title, date:date, /*coordinate:coordinate,*/ descriptionField:descriptionField)
+        
+    }
+
     
     class func placeList() -> [Place] {
         
-        let place = Place ()
+        let place = Place()
         place.title = "Workshop 17"
         place.logoURL = "https://avatars1.githubusercontent.com/u/7220596?v=3&s=200"
         place.coordinate = CLLocationCoordinate2D(latitude: -33.906764,longitude: 18.4164983)
         
-        let place2 = Place ()
+        let place2 = Place()
         place2.title = "Truth Coffee"
         place2.ratable = false
         place2.logoURL = "https://robohash.org/123.png"
         place2.coordinate = CLLocationCoordinate2D(latitude: -33.9281976,longitude: 18.4227045)
         
-        let place3 = Place ()
+        let place3 = Place()
         place3.title = "Chop Chop Coffee"
         place3.ratable = true
         place3.logoURL = "http://cdn3.ixperience.co.za/assets/icons/interview-step-2-801f63110f89e85e38f27d39f5864a1399f256fe0684844caea2a18c4b6fbd33.svg"
@@ -42,7 +78,7 @@ class Place:NSObject, MKAnnotation {
     
     class func aPlace () -> Place {
         
-        let place = Place ()
+        let place = Place()
         place.title = "Workshop 17"
         place.coordinate = CLLocationCoordinate2D(latitude: -33.906764,longitude: 18.4164983)
         return place

@@ -9,13 +9,15 @@
 import UIKit
 import MapKit
 
-class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate {
+class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UINavigationControllerDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var tableView: UITableView!
     
     var placeList = [Place]()
+    
+    let newPlaceViewController = NewPlaceViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +29,34 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        let plusButton = UIButton()
+        plusButton.backgroundColor = UIColor.blackColor()
+        plusButton.frame = CGRectMake(0, 0, 20, 20)
+        plusButton.layer.cornerRadius = plusButton.frame.size.width/2
+        plusButton.setTitle("+", forState: UIControlState.Normal)
+        
+        plusButton.addTarget(self, action: #selector(self.buttonTapped), forControlEvents: .TouchUpInside)
+
+        
+        let rightBarButton = UIBarButtonItem()
+        rightBarButton.customView = plusButton
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func buttonTapped(sender button:UIButton) {
+        
+        print("button tapped")
+        self.presentViewController(newPlaceViewController, animated: true, completion: nil)
+        
+    }
+
     
     func setupMapView() {
         
@@ -67,18 +93,6 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
       
         let cell = tableView.dequeueReusableCellWithIdentifier("placeTableViewCell", forIndexPath: indexPath) as! PlaceTableViewCell
         
-        //cell.placeLabel.text = place.title
-        //cell.placeImage.imageFromUrl(place.logoURL!)
-        
-//        let date = NSDate()
-//        let formatter = NSDateFormatter()
-//        formatter.locale = NSLocale.currentLocale()
-//        formatter.dateFormat = "MM/dd/yyyy HH:mm a"
-//        
-//        let converter = formatter.stringFromDate(date)
-        
-        //cell.dateLabel.text = converter
-        
         cell.referenceCell(place)
         
         return cell
@@ -99,14 +113,6 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return CGFloat(88)
     }
-    
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            mapView.removeAnnotation(placeList[indexPath.row])
-//            placeList.removeAtIndex(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//        }
-//    }
     
     func deleteCell(indexPath: NSIndexPath) {
         mapView.removeAnnotation(placeList[indexPath.row])
@@ -168,5 +174,5 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         return pinView
     }
     
-
+    
 }
