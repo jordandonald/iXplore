@@ -15,7 +15,6 @@
 		170674301D08D02B00F5080B /* iXploreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1706742F1D08D02B00F5080B /* iXploreUITests.swift */; };
 		1732C0E11D0EB9AD00FDB21B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732C0E01D0EB9AD00FDB21B /* Place.swift */; };
 		1732C12D1D0F6A3200FDB21B /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732C12B1D0F6A3200FDB21B /* PlaceTableViewCell.swift */; };
-		1732C12E1D0F6A3200FDB21B /* PlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1732C12C1D0F6A3200FDB21B /* PlaceTableViewCell.xib */; };
 		1732C1AB1D10926B00FDB21B /* NewPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732C1A91D10926B00FDB21B /* NewPlaceViewController.swift */; };
 		1732C1AC1D10926B00FDB21B /* NewPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1732C1AA1D10926B00FDB21B /* NewPlaceViewController.xib */; };
 		1732C1AE1D109EBB00FDB21B /* PlacesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732C1AD1D109EBB00FDB21B /* PlacesController.swift */; };
@@ -59,7 +58,6 @@
 		170674311D08D02B00F5080B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1732C0E01D0EB9AD00FDB21B /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		1732C12B1D0F6A3200FDB21B /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
-		1732C12C1D0F6A3200FDB21B /* PlaceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceTableViewCell.xib; sourceTree = "<group>"; };
 		1732C1A91D10926B00FDB21B /* NewPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlaceViewController.swift; sourceTree = "<group>"; };
 		1732C1AA1D10926B00FDB21B /* NewPlaceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPlaceViewController.xib; sourceTree = "<group>"; };
 		1732C1AD1D109EBB00FDB21B /* PlacesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesController.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				1732C1A91D10926B00FDB21B /* NewPlaceViewController.swift */,
 				1732C1AA1D10926B00FDB21B /* NewPlaceViewController.xib */,
 				1732C12B1D0F6A3200FDB21B /* PlaceTableViewCell.swift */,
-				1732C12C1D0F6A3200FDB21B /* PlaceTableViewCell.xib */,
 				1732C0E01D0EB9AD00FDB21B /* Place.swift */,
 				17DAD98D1D08E49500CCC345 /* Images */,
 				17DAD9831D08D39600CCC345 /* MapKit.framework */,
@@ -282,7 +279,6 @@
 				170674171D08D02B00F5080B /* Assets.xcassets in Resources */,
 				17DAD9881D08E0BA00CCC345 /* MapAndTableViewController.xib in Resources */,
 				17DAD9911D08E4CD00CCC345 /* star_pink 1.png in Resources */,
-				1732C12E1D0F6A3200FDB21B /* PlaceTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

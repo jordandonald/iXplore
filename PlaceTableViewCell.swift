@@ -14,7 +14,7 @@ class PlaceTableViewCell: UITableViewCell {
     var placeImage: UIImageView = UIImageView()
     var placeLabel: UILabel = UILabel()
     var dateLabel: UILabel = UILabel()
-    var descriptionBox: UITextField = UITextField()
+    var descriptionBox: UILabel = UILabel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,10 +30,6 @@ class PlaceTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        let viewFrame = CGRectMake(0,0,320,88)
-        view = UITableViewCell(frame: viewFrame)
-        self.addSubview(view)
         
         let placeImageFrame = CGRectMake(0,0,88,88)
         placeImage = UIImageView(frame: placeImageFrame)
@@ -51,8 +47,8 @@ class PlaceTableViewCell: UITableViewCell {
         self.addSubview(dateLabel)
         
         let descriptionFrame = CGRectMake(96,53,216,30)
-        descriptionBox = UITextField(frame: descriptionFrame)
-        descriptionBox.placeholder = "Enter Description"
+        descriptionBox = UILabel(frame: descriptionFrame)
+        descriptionBox.text = "Enter Description"
         self.addSubview(descriptionBox)
         
     }
@@ -64,7 +60,9 @@ class PlaceTableViewCell: UITableViewCell {
     func referenceCell(place: Place) {
         
         //image
-        placeImage.imageFromUrl(place.logoURL!)
+        if let url = place.logoURL {
+            placeImage.imageFromUrl(url)
+        }
         
         //title
         placeLabel.text = place.title

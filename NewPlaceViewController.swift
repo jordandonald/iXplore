@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class NewPlaceViewController: UIViewController, UINavigationControllerDelegate {
     
@@ -22,20 +23,6 @@ class NewPlaceViewController: UIViewController, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view
-        
-        let currentPlace = PersistenceManager.loadObject("UserArchive")
-        
-        if let currentPlace = currentPlace as? Place{
-            
-            titleField.text = currentPlace.title
-            descriptionField.text = currentPlace.descriptionField
-            latitudeField.text = currentPlace.latitude
-            longitudeField.text = currentPlace.longitude
-            
-        }
-        
 
     }
 
@@ -53,19 +40,11 @@ class NewPlaceViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBAction func saveButtonTapped(sender: UIButton) {
         
-        let place = Place()
-        
-        place.title = titleField.text
-        place.descriptionField = descriptionField.text!
-    
         let latitude = (latitudeField.text! as NSString).doubleValue
         let longitude = (longitudeField.text! as NSString).doubleValue
-        let location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: latitude,longitude: longitude)
         
-        place.coordinate = location
+        PlacesController.sharedInstance.addPlace(titleField.text, descriptionField: descriptionField.text, logoURL: nil, ratable: nil, date: nil, favorite: nil, latitude: latitude, longitude: longitude)
         
-        
-        PersistenceManager.saveObject(place, fileName: "PlaceArchive")
     }
     
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 class PlacesController {
     
@@ -27,22 +28,56 @@ class PlacesController {
         return Static.instance!
     }
     
-    func addPlace (/*title: String, descriptionField: String*/){
+    func addPlace (title: String?, descriptionField: String?, logoURL:String?, ratable: Bool?, date: NSDate?, favorite: Bool?, latitude: Double, longitude: Double){
         
-        /*accepts all the attributes on the place model and the creates + store a new instance on the array. It should also persist the place.
-         For now, only persist the title, date, coordinates, and description. The rest of fields should be nil.
-         The date attribute of the place should be set to the date at the moment of adding the place. This can be done at the controller level. Perhaps look into default parameter values to achieve this default behaviour while allowing for custom dates to be sent later.*/
+        let place = Place()
         
-        //places.append()
+        place.title = title
+        place.descriptionField = descriptionField
+        place.logoURL = logoURL
+        
+        if let ratable = ratable {
+           place.ratable = ratable
+        }
+        
+        if let date = date {
+            place.date = date
+        }
+        
+        if let favorite = favorite {
+            place.favorite = favorite
+        }
+        
+        place.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        places.append(place)
+        
+        PersistenceManager.saveNSArray(places, fileName: "PlaceArchive")
         
     }
     
     private func readPlacesFromMemory (){
-        /*populates the places array with all the methods stored in memory*/
+        /*populates the places array with all the places stored in memory*/
+      
+        if let placeList = PersistenceManager.loadNSArray("PlaceArchive") as? [Place] {
+            places = placeList
+        }
+        
     }
     
-    func getPlaces(){
+    func getPlaces() -> [Place]{
         /*returns the list of places. If the array is empty, the method should call the readPlacesFromMemory before returning the array. If the array is still empty after reading the disk, then it should return testing data.*/
+        
+        readPlacesFromMemory()
+        
+        if (places.count == 0){
+            
+            self.places = Place.placeList()
+            PersistenceManager.saveNSArray(places, fileName: "PlaceArchive")
+            
+        }
+        
+        return self.places
     }
     
 }

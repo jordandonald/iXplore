@@ -15,21 +15,18 @@ class Place:NSObject, MKAnnotation {
     var title: String? = ""
     var logoURL:String?
     var ratable:Bool = true
-    var date: NSData?
+    var date: NSDate = NSDate()
     var favorite:Bool = false
     var descriptionField: String? = ""
-    var latitude:String? = ""
-    var longitude:String? = ""
     
-    override init(){
+    required convenience init(title:String?, date:NSDate?, coordinate:CLLocationCoordinate2D, descriptionField:String?) {
         
-    }
-    
-    required init(title:String?, date:NSData?, /*coordinate:CLLocationCoordinate2D,*/ descriptionField:String?) {
-        
+        self.init()
         self.title = title
-        self.date = date
-        //self.coordinate = coordinate
+        if let date = date {
+            self.date = date
+        }
+        self.coordinate = coordinate
         self.descriptionField = descriptionField
     }
     
@@ -37,7 +34,8 @@ class Place:NSObject, MKAnnotation {
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.title, forKey: "title")
         aCoder.encodeObject(self.date, forKey: "date")
-        //aCoder.encodeObject(self.coordinate, forKey: "coordinate")
+        aCoder.encodeObject(coordinate.latitude, forKey: "latitude")
+        aCoder.encodeObject(coordinate.longitude, forKey: "longitude")
         aCoder.encodeObject(self.descriptionField, forKey: "descriptionField")
         
     }
@@ -45,11 +43,14 @@ class Place:NSObject, MKAnnotation {
     required convenience init?(coder aDecoder: NSCoder) {
         
         let title = aDecoder.decodeObjectForKey("title") as? String
-        let date = aDecoder.decodeObjectForKey("date") as? NSData
-        //let coordinate = aDecoder.decodeObjectForKey("coordinate") as? CLLocationCoordinate2D
+        let date = aDecoder.decodeObjectForKey("date") as? NSDate
+        let latitude = aDecoder.decodeObjectForKey("latitude") as? Double
+        let longitude = aDecoder.decodeObjectForKey("longitude") as? Double
         let descriptionField = aDecoder.decodeObjectForKey("descriptionField") as? String
         
-        self.init(title:title, date:date, /*coordinate:coordinate,*/ descriptionField:descriptionField)
+        let coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+        
+        self.init(title:title, date:date, coordinate:coordinate, descriptionField:descriptionField)
         
     }
 

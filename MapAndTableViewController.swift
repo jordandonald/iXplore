@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UINavigationControllerDelegate{
+class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -17,19 +18,42 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     var placeList = [Place]()
     
+    var locationStatus = ""
+    
+    var userCoordinate = CLLocationCoordinate2D()
+    
+    var locationManager = CLLocationManager()
+    
     let newPlaceViewController = NewPlaceViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.placeList = Place.placeList()
+        //self.placeList = NewPlaceViewController.sharedInstance.getPlace()
         self.setupMapView()
         self.setUpTableView()
         self.mapView.delegate = self
+        locationManager.delegate = self
         
+        // Ask for Authorization from the User.
+        //self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        
+        }
+        
+//        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        
+//        appDelegate.locationManager = self.locationManager
+//        
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         let plusButton = UIButton()
         plusButton.backgroundColor = UIColor.blackColor()
         plusButton.frame = CGRectMake(0, 0, 20, 20)
@@ -42,6 +66,12 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = plusButton
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        placeList = PlacesController.sharedInstance.getPlaces()
+        print(placeList[0].coordinate.latitude)
+        print(placeList[0].coordinate.longitude)
+        mapView.addAnnotations(placeList)
+        tableView.reloadData()
     }
     
     
@@ -50,28 +80,63 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    func locationManager( manager: CLLocationManager , didChangeAuthorizationStatus status: CLAuthorizationStatus ){
+        
+//        var shouldIAllow = false
+//        
+//        switch status {
+//            case CLAuthorizationStatus.Restricted: locationStatus = "Restricted Access to location"
+//            case CLAuthorizationStatus.Denied: locationStatus = "User denied access to location"
+//            case CLAuthorizationStatus.NotDetermined:locationStatus = "Status not determined"
+//            locationManager.requestWhenInUseAuthorization()
+//            default:
+//                locationStatus = "Allowed to location Access"
+//                shouldIAllow = true
+//        }
+//
+//        NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
+//            if (shouldIAllow == true) {
+//                NSLog("Location to Allowed")
+//                print("hey")
+//                // Start location services
+//                print(locationManager.delegate)
+//                locationManager.startUpdatingLocation()
+//            } else {
+//                NSLog("Denied access: \(locationStatus)")
+////                self.userLocation = CLLocation(latitude: 0, longitude: 0)
+//            }
+        print(CLLocationManager.locationServicesEnabled())
+        locationManager.startUpdatingLocation()
+        
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userCoordinate = locations[locations.count - 1].coordinate
+        print("hello")
+        print(userCoordinate)
+    }
+    
     func buttonTapped(sender button:UIButton) {
         
         print("button tapped")
         self.presentViewController(newPlaceViewController, animated: true, completion: nil)
+        newPlaceViewController.latitudeField.text = String(userCoordinate.latitude as Double)
+        newPlaceViewController.longitudeField.text = String(userCoordinate.longitude as Double)
         
     }
-
     
     func setupMapView() {
         
         mapView.mapType = .Hybrid
         self.mapView.showsBuildings = true
         
-        for places in placeList{
-            
-            self.mapView.addAnnotation(places)
-        }
+        mapView.addAnnotations(placeList)
         
     }
     
     func setUpTableView() {
         
+        self.tableView.allowsSelectionDuringEditing = true
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.registerClass(PlaceTableViewCell.self, forCellReuseIdentifier: "placeTableViewCell")
@@ -148,8 +213,7 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
-    func mapView(mapView: MKMapView!,
-                 viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView!,viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
         let pin = annotation as! Place
         
@@ -173,6 +237,5 @@ class MapAndTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         return pinView
     }
-    
     
 }
